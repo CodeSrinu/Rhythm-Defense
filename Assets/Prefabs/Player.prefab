@@ -132,13 +132,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1585883190163054177}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0947686, y: 0, z: 0, w: 0.9954993}
-  m_LocalPosition: {x: 0.699, y: 0.273, z: -0.661}
+  m_LocalRotation: {x: 0.035127163, y: 0.7503242, z: -0.08801739, w: 0.65424204}
+  m_LocalPosition: {x: -2.35, y: 1.08, z: 2.45}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9216334940459800003}
-  m_LocalEulerAnglesHint: {x: 10.876, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 10.256, y: 97.5, z: -3.639}
 --- !u!20 &1754044590497859262
 Camera:
   m_ObjectHideFlags: 0
@@ -253,7 +253,7 @@ GameObject:
   - component: {fileID: 3699817875010382284}
   m_Layer: 0
   m_Name: Right Leg
-  m_TagString: Right Leg
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -287,6 +287,7 @@ GameObject:
   - component: {fileID: 5682008691988594719}
   - component: {fileID: 5222213324390931736}
   - component: {fileID: 505624190823536386}
+  - component: {fileID: 5473166628765643293}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -361,6 +362,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 325467f29eda38d4299be89bab27749a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isLeftLegActive: 0
+  isRightLegActive: 0
+--- !u!54 &5473166628765643293
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2582698233398075553}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &2738687549219691713
 GameObject:
   m_ObjectHideFlags: 0
@@ -375,7 +405,7 @@ GameObject:
   - component: {fileID: 8443074723583637401}
   m_Layer: 0
   m_Name: Left Leg bottom
-  m_TagString: Untagged
+  m_TagString: Left Leg
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1130,7 +1160,7 @@ GameObject:
   - component: {fileID: 2175550593166387667}
   m_Layer: 0
   m_Name: LeftLeg
-  m_TagString: Left Leg
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1198,7 +1228,7 @@ GameObject:
   - component: {fileID: 8277219253886151452}
   m_Layer: 0
   m_Name: Left Leg bottom
-  m_TagString: Untagged
+  m_TagString: Right Leg
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
