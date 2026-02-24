@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerAnimations : MonoBehaviour
@@ -11,22 +9,32 @@ public class PlayerAnimations : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    public void LeftLegUP()
+    public void LeftLegUp()
     {
-        animator.SetTrigger("leftLegUp");
+        animator.SetBool("leftLegUp", true);
     }
 
-    public void LeftLegDown()
+    public void LeftHandUp()
     {
-        animator.SetTrigger("leftLegDown");
+        animator.SetBool("leftHandUp", true);
     }
 
-    public void RightLegUP()
+    public void RightHandUp()
     {
-        animator.SetTrigger("rightLegUp");
+        animator.SetBool("rightHandUp", true);
     }
-    public void RightLegDown()
+    public void RightLegUp()
     {
-        animator.SetTrigger("rightLegDown");
+        animator.SetBool("rightLegUp", true);
+    }
+
+    public void LeftHandBack()
+    {
+        animator.SetBool("leftHandBack", true);
+    }
+
+    public void RightHandBack()
+    {
+        animator.SetBool("rightHandBack", true);
     }
 }

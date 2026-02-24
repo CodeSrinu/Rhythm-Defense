@@ -5,8 +5,13 @@ using UnityEngine;
 public class PlayerControl : MonoBehaviour
 {
     private PlayerAnimations playerAnim;
-    public bool isLeftLegActive = false;
-    public bool isRightLegActive = false;
+    public bool leftLegUp = false;
+    public bool leftHandUp = false;
+    public bool rightLegUp = false;
+    public bool rightHandUp = false;
+    public bool leftHandBack = false;
+    public bool rightHandBack = false;
+
 
     private void Start()
     {
@@ -15,39 +20,145 @@ public class PlayerControl : MonoBehaviour
 
     private void Update()
     {
-        LegsMovement();
+        GetKeys();
+        PlayerActions();
+        ResetKeys();
     }
 
 
-    private void LegsMovement()
+    private void PlayerActions()
+    {
+        if(leftLegUp && rightHandUp)
+        {
+            playerAnim.LeftHandUp();
+            playerAnim.RightHandUp();
+            MoveForward();
+        }
+        else if (rightLegUp && leftHandUp)
+        {
+            playerAnim.RightLegUp();
+            playerAnim.LeftHandUp();
+            MoveForward();
+        }
+        else if (leftHandUp && rightHandUp)
+        {
+            playerAnim.LeftHandUp();
+            playerAnim.RightHandUp();
+            Jump();
+        }
+        else if (leftHandBack && rightHandBack)
+        {
+            playerAnim.LeftHandBack();
+            playerAnim.RightHandBack();
+            Slide();
+        }
+        else if (leftHandUp)
+        {
+            playerAnim.LeftHandUp();
+            TurnLeft();
+        }
+        else if (rightHandUp)
+        {
+            playerAnim.RightHandUp();
+            TurnRight();
+        }
+    }
+
+
+
+
+
+    private void MoveForward()
+    {
+        //move
+    }
+
+    private void Jump()
+    {
+        //jump
+    }
+
+    private void Slide()
+    {
+        //slide
+    }
+
+    private void TurnLeft()
+    {
+        //turn left
+    }
+
+    private void TurnRight()
+    {
+        //turn right
+    }
+
+
+    private void GetKeys()
     {
 
         if (Input.GetKeyDown(KeyCode.A))
         {
-            isLeftLegActive = true;
-            playerAnim.LeftLegUP();
-            StartCoroutine(ResetLeftLeg());
+            leftLegUp = true;
+        }
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            leftHandUp = true;
         }
 
         if(Input.GetKeyDown(KeyCode.D))
         {
-            isRightLegActive = true;
-            playerAnim.RightLegUP();
-            StartCoroutine(ResetRightLeg());
+            rightLegUp = true;
         }
+
+        if(Input.GetKeyDown (KeyCode.F))
+        {
+            rightHandUp = true;
+        }
+
+        if(Input.GetKeyDown(KeyCode.W))
+        {
+            leftHandBack = true;
+        }
+
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            rightHandBack = true;
+        }  
+
     }
 
-
-    IEnumerator ResetLeftLeg()
+    private void ResetKeys()
     {
-        yield return new WaitForSeconds(0.2f);
-        isLeftLegActive = false;
-    }
+        if (Input.GetKeyUp(KeyCode.A))
+        {
+            leftLegUp = false;
+        }
 
-    IEnumerator ResetRightLeg()
-    {
-        yield return new WaitForSeconds(0.2f);
-        isRightLegActive = false;
+        if (Input.GetKeyUp(KeyCode.S))
+        {
+            leftHandUp = false;
+        }
+
+        if (Input.GetKeyUp(KeyCode.D))
+        {
+            rightLegUp = false;
+        }
+
+        if (Input.GetKeyUp(KeyCode.F))
+        {
+            rightHandUp = false;
+        }
+        if (Input.GetKeyUp(KeyCode.W))
+        {
+            leftHandBack = false;
+        }
+
+        if (Input.GetKeyUp(KeyCode.E))
+        {
+            rightHandBack = false;
+        }
     }
 
 }
