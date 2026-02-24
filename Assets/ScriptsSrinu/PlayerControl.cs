@@ -4,25 +4,35 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
-    private PlayerAnimations playerAnim;
-    public bool leftLegUp = false;
-    public bool leftHandUp = false;
-    public bool rightLegUp = false;
-    public bool rightHandUp = false;
-    public bool leftHandBack = false;
-    public bool rightHandBack = false;
+    private Animator playerAnim;
+    private bool leftLegUp = false;
+    private bool leftHandUp = false;
+    private bool rightLegUp = false;
+    private bool rightHandUp = false;
+    private bool handsBack = false;
+
+    public Rigidbody playerRb;
+    private bool isGrounded;
+
+    public float moveForce = 10f;
+    public float jumpForce = 15f;
 
 
     private void Start()
     {
-        playerAnim = GetComponent<PlayerAnimations>();
+        playerAnim = GetComponent<Animator>();
+        playerRb = GetComponent<Rigidbody>();
     }
 
     private void Update()
     {
         GetKeys();
+
+    }
+
+    private void FixedUpdate()
+    {
         PlayerActions();
-        ResetKeys();
     }
 
 
@@ -30,135 +40,132 @@ public class PlayerControl : MonoBehaviour
     {
         if(leftLegUp && rightHandUp)
         {
-            playerAnim.LeftHandUp();
-            playerAnim.RightHandUp();
+            //playerAnim.LLRH();
             MoveForward();
+            ResetKeys();
         }
         else if (rightLegUp && leftHandUp)
         {
-            playerAnim.RightLegUp();
-            playerAnim.LeftHandUp();
+            //playerAnim.RLLH();
             MoveForward();
+            ResetKeys();
         }
         else if (leftHandUp && rightHandUp)
         {
-            playerAnim.LeftHandUp();
-            playerAnim.RightHandUp();
+            //playerAnim.HandsFront();
             Jump();
+            ResetKeys();
         }
-        else if (leftHandBack && rightHandBack)
+        else if (handsBack)
         {
-            playerAnim.LeftHandBack();
-            playerAnim.RightHandBack();
+            //playerAnim.HandsBack();
             Slide();
+            ResetKeys();
         }
         else if (leftHandUp)
         {
-            playerAnim.LeftHandUp();
+            //playerAnim.LeftHandUp();
             TurnLeft();
+            ResetKeys();
         }
         else if (rightHandUp)
         {
-            playerAnim.RightHandUp();
+            //playerAnim.RightHandUp();
             TurnRight();
+            ResetKeys();
         }
     }
 
-
-
-
-
     private void MoveForward()
     {
-        //move
+        if (isGrounded)
+        {
+            playerRb.AddForce(transform.right * moveForce, ForceMode.Impulse);
+        }
     }
 
     private void Jump()
     {
-        //jump
+        if (isGrounded)
+        {
+            playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            isGrounded = false;
+        }
     }
 
     private void Slide()
     {
-        //slide
+        playerRb.AddForce(Vector3.right * moveForce , ForceMode.Impulse);
+        playerAnim.SetTrigger("isSliding");
+
     }
 
     private void TurnLeft()
     {
-        //turn left
+        transform.Rotate(0, -90, 0);
+        playerRb.velocity = Vector3.zero;
     }
 
     private void TurnRight()
     {
-        //turn right
+        transform.Rotate(0, 90, 0);
+        playerRb.velocity = Vector3.zero;
+
     }
 
 
     private void GetKeys()
     {
 
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.W))
         {
             leftLegUp = true;
+            rightHandUp = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.A))
         {
             leftHandUp = true;
         }
 
-        if(Input.GetKeyDown(KeyCode.D))
+        if(Input.GetKeyDown(KeyCode.S))
         {
             rightLegUp = true;
+            leftHandUp = true;
         }
 
-        if(Input.GetKeyDown (KeyCode.F))
+        if(Input.GetKeyDown (KeyCode.D))
         {
             rightHandUp = true;
         }
 
-        if(Input.GetKeyDown(KeyCode.W))
+        if(Input.GetKeyDown(KeyCode.Space))
         {
-            leftHandBack = true;
+            rightHandUp = true;
+            leftHandUp = true;
         }
 
-        if(Input.GetKeyDown(KeyCode.E))
+        if(Input.GetKeyDown(KeyCode.LeftShift))
         {
-            rightHandBack = true;
+            handsBack = true;
         }  
 
     }
 
     private void ResetKeys()
     {
-        if (Input.GetKeyUp(KeyCode.A))
-        {
-            leftLegUp = false;
-        }
-
-        if (Input.GetKeyUp(KeyCode.S))
-        {
-            leftHandUp = false;
-        }
-
-        if (Input.GetKeyUp(KeyCode.D))
-        {
-            rightLegUp = false;
-        }
-
-        if (Input.GetKeyUp(KeyCode.F))
-        {
-            rightHandUp = false;
-        }
-        if (Input.GetKeyUp(KeyCode.W))
-        {
-            leftHandBack = false;
-        }
-
-        if (Input.GetKeyUp(KeyCode.E))
-        {
-            rightHandBack = false;
-        }
+      leftLegUp = false;
+      leftHandUp = false;
+      rightLegUp = false;
+      rightHandUp = false;
+      handsBack = false;
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = true;
+        }
+    }
 }

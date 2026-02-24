@@ -11,30 +11,40 @@ public class PlayerAnimations : MonoBehaviour
 
     public void LeftLegUp()
     {
-        animator.SetBool("leftLegUp", true);
+        animator.SetTrigger("leftLegUp");
     }
 
     public void LeftHandUp()
     {
-        animator.SetBool("leftHandUp", true);
+        animator.SetTrigger("leftHandUp");
     }
 
     public void RightHandUp()
     {
-        animator.SetBool("rightHandUp", true);
+        animator.SetTrigger("rightHandUp");
     }
     public void RightLegUp()
     {
-        animator.SetBool("rightLegUp", true);
+        animator.SetTrigger("rightLegUp");
     }
 
-    public void LeftHandBack()
+    public void HandsBack()
     {
-        animator.SetBool("leftHandBack", true);
+        animator.SetTrigger("handsBack");
     }
 
-    public void RightHandBack()
+    public void HandsFront()
     {
-        animator.SetBool("rightHandBack", true);
+        animator.SetTrigger("handsFront");
+    }
+
+    public void LLRH()
+    {
+        animator.SetTrigger("LLRH");
+    }
+
+    public void RLLH()
+    {
+        animator.SetTrigger("RLLH");
     }
 }
