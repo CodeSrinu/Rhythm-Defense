@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,13 +10,15 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject GameOverPannel;
     [SerializeField] GameObject LivesPannel;
     [SerializeField] GameObject CountdownPannel;
+    [SerializeField] GameObject AudioPanel;
+    [SerializeField] GameObject AboutPanel;
     [SerializeField] TMP_Text CountdownText;
     [SerializeField] GameObject SettingsPannel;
     [SerializeField] private TextMeshProUGUI score;
     [SerializeField] TextMeshProUGUI finalScoreText;
 
     public GameObject LevelsPannel;
-    //public PlayerMovement player;
+    //public PlayerMovement player;s
     
 
    
@@ -28,9 +30,22 @@ public class UIManager : MonoBehaviour
     static bool SkipMenu = false;
     static bool SkipLevelPanel = false;
 
+
     void Start()
     {
         Time.timeScale = 0f;
+
+        // RESET ALL PANELS
+        MainMenuPannel.SetActive(false);
+        LevelsPannel.SetActive(false);
+        PausePannel.SetActive(false);
+        GameOverPannel.SetActive(false);
+        LivesPannel.SetActive(false);
+        SettingsPannel.SetActive(false);
+        CountdownPannel.SetActive(false);
+        AudioPanel.SetActive(false);
+        AboutPanel.SetActive(false);
+
         score.text = "Points: 0";
 
         if (!SkipMenu)
@@ -47,6 +62,7 @@ public class UIManager : MonoBehaviour
             LevelsPannel.SetActive(false);
             SkipLevelPanel = false;
             Time.timeScale = 1f;
+            LivesPannel.SetActive(true); 
         }
         else
         {
@@ -97,8 +113,10 @@ public class UIManager : MonoBehaviour
 
     public void StartButton()
     {
-        SkipMenu = true;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+       
+        MainMenuPannel.SetActive(false);
+        LevelsPannel.SetActive(true);
+    
     }
 
     public void QuitButton()
@@ -109,19 +127,29 @@ public class UIManager : MonoBehaviour
     public void ShowPause()
     {
         Debug.Log("Pause Clicked");
+
+        // Disable all other panels
+        SettingsPannel.SetActive(false);
+        CountdownPannel.SetActive(false);
+        LevelsPannel.SetActive(false);
+        LivesPannel.SetActive(false);
+        GameOverPannel.SetActive(false);
+
         PausePannel.SetActive(true);
         Time.timeScale = 0f;
-       // player.enabled = false;
-       
-
     }
+
+
 
     public void ResumeButton()
     {
         StartCoroutine(ResumeCountdown());
+        LivesPannel.SetActive(true);
+
+
     }
 
-    public void HomeButton()
+    public void ExitButton()
     {
         PausePannel.SetActive(false);
         SettingsPannel.SetActive(false);
@@ -136,11 +164,20 @@ public class UIManager : MonoBehaviour
 
     public void AudioButton()
     {
-        SettingsPannel.SetActive(false);
+        SettingsPannel.SetActive(true);
+        AudioPanel.SetActive(true);
+        AboutPanel.SetActive(false);
+    }
+    public void AboutButton()
+    {
+        SettingsPannel.SetActive(true);
+        AboutPanel.SetActive(true);
+        AudioPanel.SetActive(false);
     }
     public void ShowSettings()
     {
         SettingsPannel.SetActive(true);
+        LivesPannel.SetActive(false);
     }
 
     public void Restart()
