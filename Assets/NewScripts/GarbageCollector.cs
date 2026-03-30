@@ -9,7 +9,7 @@ public class GarbageCollector : MonoBehaviour
         {
             Debug.Log("Garbage Collected");
 
-            FindObjectOfType<ConditionBar>().AddCondition();
+            FindObjectOfType<GameManager>().AddCondition();
 
             Destroy(other.gameObject); 
         }
